@@ -95,7 +95,6 @@ export default function ListOfDocumentPopUp(props) {
                                        Document {index+1} 
                                        <a href={path} style={{textDecoration:'none', margin:'5px'}} target="_blank" rel="noopener noreferrer" download>
                                             <Button variant="outlined" color='primary'>
-                                                <i className="fas fa-download"/>
                                                 Download
                                             </Button>
                                         </a>
