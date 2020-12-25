@@ -64,10 +64,11 @@ const EnhancedTableHead = (props) => {
 };
 
 const DashboardTable = (props) => {
-    const { headCells, AnalaysisRows, action, pageName, addRemarks, saveFile } = props;
+    const { headCells, AnalaysisRows, action, pageName, addRemarks } = props;
     const [itecOpen, setItecOpen] = React.useState(false);
     const [RemarkOpen, setRemarkOpen] = React.useState(false);
     const [selectedRow, setSelectedRow] = React.useState({})
+    const [option, setOption] = React.useState('')
 
     const classes = useStyles();
 
@@ -85,7 +86,8 @@ const DashboardTable = (props) => {
         });
     };
 
-    const handleRelevence = (row) => {
+    const handleRelevence = (row,option) => {
+        setOption(option)
         setSelectedRow(row)
         setItecOpen(true);
     };
@@ -103,6 +105,7 @@ const DashboardTable = (props) => {
         setRemarkOpen(false);
     };
 
+    console.log(AnalaysisRows)
     return (
         <>
         <div className={classes.root}>
@@ -120,20 +123,13 @@ const DashboardTable = (props) => {
                                         <>
                                             <TableCell align="left">
                                                 <AttachFileIcon 
-                                                    onClick={()=>handleRelevence(rows)}
+                                                    onClick={()=>handleRelevence(rows,"core")}
                                                 />
                                             </TableCell>
                                             <TableCell align="left">
-                                                <Button variant="outlined" component="label" color="primary" className="txt-capitalize">
-                                                    Upload
-                                                    <input
-                                                        type="file"
-                                                        hidden
-                                                        multiple
-                                                        name="images"
-                                                        onChange={(event)=>saveFile(rows.questionId,event)}
-                                                    />
-                                                </Button>                                        
+                                                <AttachFileIcon 
+                                                    onClick={()=>handleRelevence(rows,"itec")}
+                                                />                                       
                                             </TableCell>
                                         </>
                                     )}
@@ -154,8 +150,8 @@ const DashboardTable = (props) => {
                 </TableContainer>
             </Paper>
         </div>
-        {itecOpen && <ListOfDocumentPopUp itecOpen={itecOpen} handleItecClose={handleItecClose} selectedRow={selectedRow}/>}
-        {RemarkOpen && <RemarkPopUp RemarkOpen={RemarkOpen} handleRemarkClose={handleRemarkClose} selectedRow={selectedRow} addRemarks={addRemarks}/>}
+        {itecOpen && <ListOfDocumentPopUp itecOpen={itecOpen} handleItecClose={handleItecClose}  selectedRow={selectedRow} option={option} />}
+        {RemarkOpen && <RemarkPopUp RemarkOpen={RemarkOpen} handleRemarkClose={handleRemarkClose} selectedRow={selectedRow} addRemarks={addRemarks} />}
         </>
     );
 };

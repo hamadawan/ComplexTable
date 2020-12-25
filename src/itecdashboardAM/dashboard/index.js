@@ -4,6 +4,7 @@ import useStyles from './dashboardstyles'
 import DashboardTable from './dashboardtable'
 import './dashboardstyles.css'
 
+
 const structure = JSON.parse(JSON.stringify(
     {
         "serviceId": 520,
@@ -70,8 +71,8 @@ const structure = JSON.parse(JSON.stringify(
         "dateModified": "2020-12-24T15:42:56.300+05:30"
     }
 ))
- 
-const DetailAnalysis = () => {
+
+ const DetailAnalysis = () => {
 
     const [AnalaysisRows , setAnalysisRows] = React.useState([]);
     const classes = useStyles();
@@ -80,15 +81,6 @@ const DetailAnalysis = () => {
         { id: 'questionText', label: 'What to analysis' },
         { id: 'remarkByCoreteam', label: 'Remarks by core team' }
     ];
-
-    const getResults =()=>{
-        const data = structure.detailedAnalysis.map((rowData)=>{
-            // console.log(rowData,"RowData");
-            return rowData;
-        });
-
-        setAnalysisRows(data);
-    }
 
     const addRemarks = (questionId,remark) => {
         
@@ -103,36 +95,18 @@ const DetailAnalysis = () => {
 
     }
 
-    const saveFile = (questionId,event) => {
-        let files = event.target.files;
-        // {
-        //   write code to send file to server and in the response from server, 
-        //   set file path 
-        // }
+    const getResults =()=>{
+        const data = structure.detailedAnalysis.map((rowData)=>{
+            // console.log(rowData,"RowData");
+            return rowData;
+        });
 
-        // currently just adding file name to the state
-        let filesname = []
-        for (let i = 0; i < files.length; i++) {
-            
-            filesname.push(files[i].name)
-        }
-
-        const newArray = AnalaysisRows.map(row=>{
-            if(row.questionId === questionId)
-            {
-                row.attachmentsByItecteam = filesname;
-            }
-            return row;
-        })
-        setAnalysisRows(newArray)
-
+        setAnalysisRows(data);
     }
 
 useEffect(()=>{
     getResults();
 },[])
-
-    console.log(AnalaysisRows)
 
     return (
 <div className={classes.root}>
@@ -153,7 +127,6 @@ useEffect(()=>{
                 pageName="dashboard"
                 action="document"
                 addRemarks={addRemarks}
-                saveFile={saveFile}
             />
         </CardContent>        
     </Card>       
@@ -161,6 +134,9 @@ useEffect(()=>{
             <ul>
                 <li>
                     <Button type="button" color="primary" variant="contained" size="large"> Save </Button>
+                </li>
+                <li>
+                    <Button type="button" color="primary" variant="contained" size="large"> Rework </Button>
                 </li>
                 <li>
                     <Button type="submit" color="primary" variant="contained" size="large"> Submit </Button>

@@ -1,5 +1,5 @@
 import './App.css';
-import Dashboard from './itecdashboardCRC/dashboard'
+import Dashboard from './itecdashboardAM/dashboard'
 
 function App() {
 
